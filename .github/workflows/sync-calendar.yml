@@ -1,0 +1,36 @@
+name: Sync Airbnb calendar
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # every hour
+  workflow_dispatch: {}     # allows manual "Run workflow" from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch Airbnb calendar and update availability.json
+        env:
+          AIRBNB_ICAL_URL: ${{ secrets.AIRBNB_ICAL_URL }}
+        run: node scripts/sync-calendar.js
+
+      - name: Commit updated availability if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/availability.json
+          if git diff --staged --quiet; then
+            echo "No availability changes."
+          else
+            git commit -m "Sync availability from Airbnb"
+            git push
+          fi

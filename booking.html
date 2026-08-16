@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réserver — Chalet du 8, rue du Sahara</title>
+<meta name="description" content="Réservez directement, sans frais de plateforme. Calendrier synchronisé avec Airbnb.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌲</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header scrolled" id="siteHeader">
+  <a href="index.html" class="brand"><span class="leaf">🌲</span> 8, rue du Sahara</a>
+  <div class="header-actions">
+    <div class="lang-toggle">
+      <button data-lang-btn="fr" class="active">FR</button>
+      <button data-lang-btn="en">EN</button>
+    </div>
+    <a class="btn btn-small" href="index.html#gallery" data-i18n="nav.photos">Photos</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow" data-i18n="ph.eyebrow">Réservation directe</span>
+    <h1 data-i18n="ph.title">Réservez sans frais de plateforme</h1>
+    <p data-i18n="ph.lead">Choisissez vos dates ci-dessous — le calendrier est synchronisé automatiquement avec notre annonce Airbnb, alors les disponibilités sont toujours à jour. Séjour de 31 à 60 nuits, mêmes tarifs que sur Airbnb, sans les frais de service.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="booking-layout">
+    <div class="panel">
+      <div class="sync-note" id="syncNote">
+        <span class="dot"></span>
+        <span data-i18n="ph.syncing">Chargement du calendrier…</span>
+      </div>
+
+      <div class="cal-nav">
+        <button id="calPrev" aria-label="Mois précédent">&#8249;</button>
+        <span class="cal-title" id="calTitle"></span>
+        <button id="calNext" aria-label="Mois suivant">&#8250;</button>
+      </div>
+      <div class="cal-weekdays" id="calWeekdays"></div>
+      <div class="cal-grid" id="calGrid"></div>
+
+      <div class="cal-legend">
+        <span><i class="i-blocked"></i> <span data-i18n="ph.legend.blocked">Déjà réservé</span></span>
+        <span><i class="i-selected"></i> <span data-i18n="ph.legend.selected">Sélectionné</span></span>
+      </div>
+
+      <div class="stay-rule" data-i18n="ph.stayrule">Séjour minimum : 31 nuits · maximum : 60 nuits (même règle que sur Airbnb).</div>
+
+      <div class="selection-msg" id="selectionMsg"></div>
+    </div>
+
+    <div class="panel summary-panel">
+      <h3 data-i18n="ph.summary.title">Votre séjour</h3>
+      <div class="summary-dates" id="summaryDates" data-i18n="ph.summary.none">Aucune date sélectionnée</div>
+
+      <div id="priceBreakdown" style="display:none">
+        <div class="price-row" id="rowNightly"></div>
+        <div class="price-row" id="rowExtraGuests" style="display:none"></div>
+        <div class="price-row" id="rowPets" style="display:none"></div>
+        <div class="price-row" id="rowCleaning" style="display:none"></div>
+        <div class="price-row" id="rowGst"></div>
+        <div class="price-row" id="rowQst"></div>
+        <div class="price-row total" id="rowTotal"></div>
+        <div class="no-fee-badge" data-i18n="ph.nofee">✓ Aucuns frais de service Airbnb</div>
+      </div>
+
+      <div class="placeholder-note" id="placeholderNote" data-i18n="ph.placeholder">Tarif provisoire en attente de confirmation par l'hôte — le prix final sera confirmé dans la réponse à votre demande.</div>
+
+      <form id="requestForm">
+        <div class="form-group">
+          <label for="adults" data-i18n="ph.form.adults">Adultes</label>
+          <select id="adults"></select>
+        </div>
+        <div class="form-group">
+          <label for="children" id="childrenLabel" data-i18n="ph.form.children">Enfants (gratuit)</label>
+          <select id="children"></select>
+        </div>
+        <div class="form-group">
+          <label for="pets" data-i18n="ph.form.pets">Chiens (stérilisés uniquement — pas de chats)</label>
+          <select id="pets"></select>
+        </div>
+        <div class="form-group">
+          <label for="name" data-i18n="ph.form.name">Nom complet</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email" data-i18n="ph.form.email">Courriel</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="phone" data-i18n="ph.form.phone">Téléphone (optionnel)</label>
+          <input type="tel" id="phone">
+        </div>
+        <div class="form-group">
+          <label for="message" data-i18n="ph.form.message">Message (optionnel)</label>
+          <textarea id="message"></textarea>
+        </div>
+
+        <div class="send-options">
+          <button type="button" class="btn" id="sendEmail" disabled data-i18n="ph.form.sendEmail">Envoyer la demande par courriel</button>
+          <button type="button" class="btn btn-ghost" id="sendSms" disabled style="color:var(--forest-deep); border-color:var(--bark-light);" data-i18n="ph.form.sendSms">Envoyer la demande par SMS</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container footer-grid">
+    <div class="brand2">🌲 8, rue du Sahara</div>
+    <div data-i18n="footer.addr">Domaine Lakefield, Argenteuil, Québec</div>
+    <div data-i18n="footer.credit">Chalet privé — location de courte durée</div>
+  </div>
+</footer>
+
+<script src="booking.js"></script>
+</body>
+</html>
