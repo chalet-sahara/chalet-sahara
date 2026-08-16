@@ -64,7 +64,7 @@ const translations = {
     "ph.nofee": "✓ Aucuns frais de service Airbnb",
     "ph.placeholder": "Tarif provisoire en attente de confirmation par l'hôte — le prix final sera confirmé dans la réponse à votre demande.",
     "ph.form.adults": "Adultes",
-    "ph.form.children": "Enfants",
+    "ph.form.children": "Enfants (0-5 ans, gratuit)",
     "ph.form.pets": "Chiens (stérilisés uniquement — pas de chats)",
     "ph.form.name": "Nom complet",
     "ph.form.email": "Courriel",
@@ -98,7 +98,7 @@ const translations = {
     "ph.nofee": "✓ No Airbnb service fee",
     "ph.placeholder": "Provisional rate pending confirmation by the host — the final price will be confirmed in the reply to your request.",
     "ph.form.adults": "Adults",
-    "ph.form.children": "Children",
+    "ph.form.children": "Children (0-5 yrs, free)",
     "ph.form.pets": "Dogs (neutered/spayed only — no cats)",
     "ph.form.name": "Full name",
     "ph.form.email": "Email",
@@ -508,9 +508,6 @@ function applyTranslations() {
   document.querySelectorAll("[data-lang-btn]").forEach(btn => {
     btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
   });
-  document.getElementById("childrenLabel").textContent = currentLang === "fr"
-    ? `Enfants (0-${PRICING.freeChildAge} ans, gratuit)`
-    : `Children (0-${PRICING.freeChildAge} yrs, free)`;
   renderCalendar();
   updateSummary();
 }
